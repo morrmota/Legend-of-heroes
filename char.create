@@ -1,0 +1,107 @@
+import keyboard
+
+classes = {
+    "Warrior": {
+        "Attributes": {
+            "Strength": 5,
+            "Speed": -2
+        },
+        "Pros": "Excellent in physical combat, dealing heavy damage",
+        "Cons": "Lacks agility and can be slower in movement"
+    },
+    "Rogue": {
+        "Attributes": {
+            "Agility": 4,
+            "Strength": -1
+        },
+        "Pros": "Nimble and excels in stealth and evasion",
+        "Cons": "Slightly lower raw strength compared to other classes"
+    },
+    "Mage": {
+        "Attributes": {
+            "Intelligence": 5,
+            "Defense": -2
+        },
+        "Pros": "Possesses vast magical knowledge and excels in spellcasting",
+        "Cons": "Vulnerable to physical attacks with lower defense"
+    },
+    "Archer": {
+        "Attributes": {
+            "Dexterity": 4,
+            "Strength": -1
+        },
+        "Pros": "Highly accurate and skilled in ranged combat",
+        "Cons": "Relies on precision and finesse with slightly lower raw strength"
+    },
+    "Paladin": {
+        "Attributes": {
+            "Strength": 3,
+            "Speed": 2,
+            "Intelligence": -2
+        },
+        "Pros": "Strong warriors with enhanced speed and a sense of righteousness",
+        "Cons": "Lower affinity for magic or complex problem-solving"
+    },
+    "Sorcerer": {
+        "Attributes": {
+            "Intelligence": 4,
+            "Defense": -2
+        },
+        "Pros": "Masters of arcane magic, capable of powerful spells",
+        "Cons": "Vulnerable to physical attacks with lower defense"
+    },
+    "Barbarian": {
+        "Attributes": {
+            "Strength": 5,
+            "Intelligence": -3
+        },
+        "Pros": "Possesses immense raw strength, making them fearsome in combat",
+        "Cons": "Lower problem-solving or strategic abilities due to focus on brute force"
+    },
+    "Goblin": {
+        "Attributes": {
+            "Agility": 3,
+            "Charisma": -2,
+            "Strength": -1
+        },
+        "Pros": "Quick and agile creatures, adept at sneaking and evasion",
+        "Cons": "May struggle with social interactions and lacks raw physical strength compared to other classes"
+    }
+}
+
+class_names = list(classes.keys())
+current_index = 0
+
+def display_class_details(class_name):
+    class_data = classes.get(class_name)
+    if class_data:
+        print("Class:", class_name)
+        print("Attributes:")
+        for attr, value in class_data["Attributes"].items():
+            print(f"- {attr}: {value}")
+        print("Pros:", class_data["Pros"])
+        print("Cons:", class_data["Cons"])
+    else:
+        print("Invalid class name.")
+
+def choose_class():
+    global current_index
+    current_class = class_names[current_index]
+    display_class_details(current_class)
+
+def handle_key_event(event):
+    global current_index
+
+    if event.name == 'up':
+        current_index = (current_index - 1) % len(class_names)
+        choose_class()
+    elif event.name == 'down':
+        current_index = (current_index + 1) % len(class_names)
+        choose_class()
+
+keyboard.on_press(handle_key_event)
+
+print("Use the up and down arrow keys to navigate and select a class:")
+choose_class()
+keyboard.wait()
+
